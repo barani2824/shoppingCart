@@ -1,0 +1,22 @@
+<mat-toolbar class="header-class">
+    <span routerLink="/">Hardware Application</span>
+    <span class="header-spacer"></span>
+    <ng-container *ngIf="loggedInUser">
+        <input type="button" value="Theme" class="btn btn-default btn-sm" (click)="toggleTheme()" />
+        <h3 class="text-center">'Welcome': {{loggedInUser!.name.firstName}} {{loggedInUser!.name!.lastName}}</h3>
+        <span class="nav-icon" *ngIf="loggedInUser.role !== 'ADMIN'" (click)="drawer.toggle();">
+            <i class="fas fa-cart-plus"></i>
+        </span>
+        <input type="button" class="btn btn-default btn-sm" (click)="logout();" value="logout" />
+    </ng-container>
+    <input *ngIf="!loggedInUser" type="button" routerLink='/login' value="login" />
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer class="menu-sidenav" mode="over" position="end">
+        <ng-container *ngIf="loggedInUser && loggedInUser.role !== 'ADMIN'">
+            <app-user-cart [drawer]="drawer"></app-user-cart>
+        </ng-container>
+    </mat-drawer>
+    <router-outlet></router-outlet>
+</mat-drawer-container>

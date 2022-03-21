@@ -1,0 +1,17 @@
+.wrapper {
+    line-height: calc(70vh);
+    height: calc(50vh);
+    text-align: center;
+}
+
+.inner {
+    color: white;
+    padding: 12px;
+    display: inline;
+}
+
+.theme-color {
+    background: var(--background);
+    color: var(--on-background);
+}
+

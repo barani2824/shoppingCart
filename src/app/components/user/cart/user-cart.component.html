@@ -1,0 +1,28 @@
+<div class="container" style="padding: 20px;">
+    <div *ngIf="userCart != null">
+        <div class="d-flex justify-content-center">
+            <div class="cart">
+                <span class="close-cart" (click)="drawer.toggle();">
+                  <i class="fas fa-window-close"></i>
+                </span>
+                <h2 class="py-3 text-align-center">Your Cart</h2>
+                <div class="cart-content">
+                    <div class="cart-item" *ngFor="let item of cartItems">
+                        <div style="width: 250px;margin-left: 20px;">
+                            <h4>{{item.name}}</h4>
+                            <h5>{{item.price | currency}}</h5>
+                            <span class="remove-item" (click)="removeFromCart(item)">remove</span>
+                        </div>
+                        <div>
+                            <p class="item-amount">{{item.quantity}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-footer">
+                    <h3>your total: <span class="cart-total">{{getTotalCost() | currency}}</span></h3>
+                    <button class="clear-cart banner-btn" (click)="clearCart();">clear cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

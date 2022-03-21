@@ -1,0 +1,56 @@
+<div style="min-height: 100vh;">
+    <div *ngIf="!!products && !isAddEdit" class="container">
+        <div class="products">
+            <div class="section-title">
+                <div class="my-4 row">
+                    <div class="px-4 example-button-row d-flex justify-content-between">
+                        <button *ngIf="isLoggedInUserAdmin()" (click)="addEditProduct()"
+                        class="btn btn-default btn-sm">Add Product</button>
+                        <input type="text" placeholder="Search" (keyup)="searchProducts($event.target)" />
+                    </div>
+                </div>
+            </div>
+            <div class="products-center">
+                    <ng-container
+                            *ngFor="let product of products | slice:pageEvent.pageIndex * pageEvent.pageSize:pageEvent.pageIndex * pageEvent.pageSize + pageEvent.pageSize || 12; let i=index"
+                            class="justify-content-center">
+                        <article class="product">
+                            <div class="img-container">
+                                <img src="{{product.defaultImage}}" alt="Product image" class="product-img">
+                                <div class="product-overlay">
+                                    <div class="product-description">
+                                        {{product.description}}
+                                    </div>
+                                    <br />
+                                    <button data-id="1" (click)="add(product)" class="btn btn-default btn-sm" style="margin-left: 5px">Cart</button>
+                                    <button data-id="2" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"
+                                            (click)="addEditProduct(product)"
+                                            > Edit</button>
+                                    <button data-id="3" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"
+                                            (click)="delete(product)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <h3>{{product.name}}</h3>
+                            <h4><b>Price: {{product.price | currency}}</b></h4>
+                            <h4 *ngIf="product.discount != 0"><b>Discount: {{product.discount | currency}}</b></h4>
+                        </article>
+                    </ng-container>
+                </div>
+        </div>
+
+        <h2 *ngIf="resourcesLoaded && (products == null || products.length == 0)"
+            class="vertical-center text-center">
+            No Products Found
+        </h2>
+
+        <mat-paginator *ngIf="!(products == null || products.length == 0)" class="m-2" [length]="length"
+            (page)="pageEvent = $event;">
+        </mat-paginator>
+    </div>
+
+    <ng-container *ngIf="isAddEdit">
+        <app-product-add-edit (cancelEmitter)="cancelEmitter($event)" [product]="selectedProduct"></app-product-add-edit>
+    </ng-container>
+</div>
