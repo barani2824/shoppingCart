@@ -10,6 +10,7 @@ export const lightTheme: Theme = {
     '--primaryColor': '#1976d2',
     '--on-primary': '#000',
     '--headerBackground': 'rgb(231, 226, 221)',
-    '--drawerBackground': 'rgba(0,0,0,.5)'
+    '--drawerBackground': 'rgba(0,0,0,.5)',
+    '--btnBackground': '#007bff'
   }
 };

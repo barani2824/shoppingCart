@@ -24,13 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem(Constants.LOGGED_IN_USER) != null) {
-      this.router.navigate([Constants.ROUTE_HOME]);
-    } else {
+    const loggedInUser = localStorage.getItem(Constants.LOGGED_IN_USER);
+    if (!loggedInUser || loggedInUser === 'undefined' || loggedInUser === undefined) {
       this.userService.getAllUsers().subscribe((users) => {
         this.users = users;
-      }, err => {
+        }, err => {
       });
+    } else {
+      this.router.navigate([Constants.ROUTE_HOME]);
     }
   }
 

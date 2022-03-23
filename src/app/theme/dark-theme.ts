@@ -5,11 +5,12 @@ export const darkTheme: Theme = {
   properties: {
     '--mainSpacing': '0.1rem;',
     '--mainTransition': 'all 0.3s linear',
-    '--background': '#1F2125',
+    '--background': '#1c2530',
     '--on-background': '#fff',
     '--primaryColor': 'darkorange',
     '--on-primary': '#fff',
     '--headerBackground': 'rgb(0, 0, 0)',
-    '-drawerBackground': 'rgba(103,87,87,.5)'
+    '--drawerBackground': 'rgba(103,87,87,.5)',
+    '--btnBackground': 'darkorange'
   }
 }

@@ -1,15 +1,14 @@
 <div class="col-md-12">
     <div class="card card-container">
         <ng-container *ngIf="!isLoggedIn">
-            <form name="form" novalidate>
+            <form name="form" novalidate class="text-center border border-light p-5">
                 <div class="form-group">
-                    Login
+                    <p class="h4 mb-4">Sign in</p>
                     <div>
-                        <span>User</span>
-                        <input type="text" placeholder="Enter Email" aria-label="User" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" />
+                        <input type="email" id="email" class="form-control mb-4" placeholder="Enter Email"
+                               aria-label="User" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}">
                     </div>
-                    <button class="textright" (click)="login()"
-                        [disabled]="!userName">Login</button>
+                    <button class="my-4" type="submit" (click)="login()" [disabled]="!userName">Sign in</button>
                 </div>
             </form>
         </ng-container>

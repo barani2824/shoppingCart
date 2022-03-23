@@ -8,6 +8,7 @@ import { User } from 'src/app/components/user/model/user.model';
 import { Constants } from 'src/app/shared/constants';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { DialogService } from 'src/app/service/dialog.service';
 
 @Component({
   selector: 'app-product-catalog',
@@ -32,7 +33,8 @@ export class ProductCatalogComponent implements OnInit {
     private authService: AuthService,
     private cartService: CartService,
     private router: Router,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private dialog: DialogService) {
     this.authService.getLoggedInUser().subscribe((_loggedInUser) => {
       this.loggedInUser = _loggedInUser;
     }, err => {
@@ -84,6 +86,20 @@ export class ProductCatalogComponent implements OnInit {
 
   isLoggedInUserAdmin() {
     return this.loggedInUser != null && this.loggedInUser.role == Constants.ROLE_ADMIN;
+  }
+
+  yesNoDialog(product: Product) {
+    this.dialog
+      .confirmDialog({
+        title: 'Product',
+        message: 'Do you want to delete ' + product.name + '?',
+        confirmCaption: 'Yes',
+        cancelCaption: 'No',
+      })
+      .subscribe((yes) => {
+        if (yes)
+            this.delete(product)
+      });
   }
 
   delete(product: Product) {

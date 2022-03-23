@@ -74,7 +74,6 @@ export class CartService {
       }));
   }
 
-
   removeFromCart(productId: number): Observable<Observable<Cart>> {
     let user: User = JSON.parse(localStorage.getItem(Constants.LOGGED_IN_USER)!);
 

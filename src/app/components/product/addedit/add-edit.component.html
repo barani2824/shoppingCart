@@ -45,8 +45,9 @@
                 </div>
                 <div class="form-group">
                     <div class="my-4 example-button-row d-flex justify-content-between">
-                        <a (click)="cancel()">Cancel</a>
-                        <button mat-raised-button color="primary" [disabled]="!form.valid">
+                        <button (click)="cancel()" class="btn btn-outline-secondary">Cancel</button>
+                        <br />
+                        <button class="btn btn-outline-primary" mat-raised-button [disabled]="!form.valid">
                             {{isAddMode ? 'Add' : 'Update'}}
                         </button>
                     </div>

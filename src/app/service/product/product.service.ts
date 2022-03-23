@@ -9,6 +9,7 @@ import { CartService } from '../cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/shared/constants';
+import { BroadcastService } from 'src/app/service/broadcast/broadcast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ProductService {
 
   constructor(private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private broadcastService: BroadcastService) { }
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + modules.product.list).pipe(
@@ -69,9 +71,10 @@ export class ProductService {
     cartService.addToCart(product.id).subscribe((observable) => {
       observable.subscribe((status) => {
         if (status != null) {
-          this._snackBar.open(product.name, Constants.CART_ACTION_ADD, {
+          this._snackBar.open(product.name + 'has been added to cart', Constants.CART_ACTION_ADD, {
             duration: 3000
           });
+          this.broadcastService.publishMsg(Constants.CART_UPDATED, true);
         } else {
           this._snackBar.open(product.name, Constants.PRODUCT_ACTION_ERROR, {
             duration: 3000
@@ -87,10 +90,10 @@ export class ProductService {
     let productName = product.name;
     this.deleteProduct(product.id).subscribe((deleted) => {
       if (deleted) {
-        window.location.reload();
         this._snackBar.open(productName, Constants.PRODUCT_ACTION_DELETE, {
           duration: 3000
         });
+        window.location.reload();
       } else {
         this._snackBar.open(productName, Constants.PRODUCT_ACTION_ERROR, {
           duration: 3000

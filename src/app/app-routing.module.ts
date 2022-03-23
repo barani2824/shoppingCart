@@ -12,16 +12,6 @@ const appRoutes: Routes = [
       expectedRole: [Constants.ROLE_CUSTOMER, Constants.ROLE_ADMIN]
     }
   },
-  {
-    path: Constants.ROUTE_PRODUCT,
-    loadChildren: () => import('./components/product/product-routing.module')
-      .then(m => m.ProductRoutingModule)
-  },
-  {
-    path: Constants.ROUTE_USER,
-    loadChildren: () => import('./components/user/user-routing.module')
-      .then(m => m.UserRoutingModule)
-  },
   { path: Constants.ROUTE_LOGIN, component: LoginComponent }
 ];
 

@@ -1,13 +1,21 @@
-<div style="min-height: 100vh;">
+<div>
     <div *ngIf="!!products && !isAddEdit" class="container">
+        <div *ngIf="!isLoggedInUserAdmin()" id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="http://placeimg.com/640/480/cats" alt="First slide" style="height: 300px; max-height: 100%;">
+                </div>
+            </div>
+        </div>
         <div class="products">
             <div class="section-title">
-                <div class="my-4 row">
-                    <div class="px-4 example-button-row d-flex justify-content-between">
-                        <button *ngIf="isLoggedInUserAdmin()" (click)="addEditProduct()"
-                        class="btn btn-default btn-sm">Add Product</button>
-                        <input type="text" placeholder="Search" (keyup)="searchProducts($event.target)" />
-                    </div>
+                <div class="form-outline" style="width: 50%;">
+                    <input type="text" class="form-control" placeholder="Search" (keyup)="searchProducts($event.target)"
+                           aria-label="Search"/>
+                </div>
+                <div style="text-align: right;width: 50%;">
+                    <button *ngIf="isLoggedInUserAdmin()" (click)="addEditProduct()"
+                            class="btn btn-primary btn-sm">Add Product</button>
                 </div>
             </div>
             <div class="products-center">
@@ -22,19 +30,28 @@
                                         {{product.description}}
                                     </div>
                                     <br />
-                                    <button data-id="1" (click)="add(product)" class="btn btn-default btn-sm" style="margin-left: 5px">Cart</button>
-                                    <button data-id="2" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"
-                                            (click)="addEditProduct(product)"
-                                            > Edit</button>
-                                    <button data-id="3" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"
-                                            (click)="delete(product)">
-                                        Delete
-                                    </button>
+                                    <div style="font-size: 20px;">
+                                        <ng-container *ngIf="!isLoggedInUserAdmin()">
+                                            <span style="margin-right: 5px;" (click)="add(product)"><i class="fas fa-cart-plus"></i></span>
+                                        </ng-container>
+                                        <ng-container *ngIf="isLoggedInUserAdmin()">
+                                            <span style="margin-right: 5px;" (click)="addEditProduct(product)"><i class="fas fa-pencil-square-o"></i></span>
+                                            <span style="margin-right: 5px;" (click)="yesNoDialog(product)"><i class="fas fa-trash-o"></i></span>
+                                        </ng-container>
+                                    </div>
+<!--                                    <button data-id="1" (click)="add(product)" class="btn btn-default btn-sm" style="margin-left: 5px">Cart</button>-->
+<!--                                    <button data-id="2" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"-->
+<!--                                            (click)="addEditProduct(product)"-->
+<!--                                            > Edit</button>-->
+<!--                                    <button data-id="3" *ngIf="isLoggedInUserAdmin()" class="btn btn-default btn-sm" style="margin-left: 5px"-->
+<!--                                            (click)="delete(product)">-->
+<!--                                        Delete-->
+<!--                                    </button>-->
                                 </div>
                             </div>
                             <h3>{{product.name}}</h3>
-                            <h4><b>Price: {{product.price | currency}}</b></h4>
-                            <h4 *ngIf="product.discount != 0"><b>Discount: {{product.discount | currency}}</b></h4>
+                            <h4>Price: {{product.price | currency}}</h4>
+                            <h4 *ngIf="product.discount != 0">Discount: {{product.discount | currency}}</h4>
                         </article>
                     </ng-container>
                 </div>

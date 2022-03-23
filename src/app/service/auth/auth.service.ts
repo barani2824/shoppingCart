@@ -15,11 +15,10 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const sessionUser: string = localStorage.getItem(Constants.LOGGED_IN_USER)!;
-    if (sessionUser != null) {
-      return true;
-    } else {
-      return false;
+    if (!sessionUser || sessionUser === 'undefined' || sessionUser === undefined) {
+        return false;
     }
+    return true;
   }
 
   getLoggedInUser(): Observable<User | null> {

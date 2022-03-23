@@ -5,7 +5,6 @@ import { RouterModule } from "@angular/router";
 import { ProductCatalogComponent } from "./catalog/product-catalog.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { ProductRoutingModule } from "./product-routing.module";
 import { ProductAddEditComponent } from "./addedit/add-edit.component";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -14,7 +13,6 @@ import { HttpClientModule } from "@angular/common/http";
         CommonModule,
         RouterModule,
         HttpClientModule,
-        ProductRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         MatPaginatorModule,

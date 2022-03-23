@@ -11,16 +11,17 @@ import { ThemeModule } from './theme/theme.module';
 import { lightTheme } from './theme/light-theme';
 import { darkTheme } from './theme/dark-theme';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { BroadcastModule } from './service/broadcast/broadcast.module';
+
+import { MaterialModule } from './shared/material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { RoleGuard } from './guard/role-guard.service';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ModalComponent } from './components/product/modal/modal.component';
 import { ProductModule } from './components/product/product.module';
 import { UserModule } from './components/user/user.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -30,7 +31,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,18 +43,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    MatSidenavModule,
+    MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ProductModule,
     UserModule,
     FormsModule,
     ReactiveFormsModule,
-    MatToolbarModule,
     NgxSpinnerModule
   ],
   providers: [RoleGuard],

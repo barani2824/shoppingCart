@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { ProductService } from 'src/app/service/product/product.service';
 import { Constants } from 'src/app/shared/constants';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-add-edit',
@@ -29,6 +30,7 @@ export class ProductAddEditComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private productService: ProductService,
+    private _snackBar: MatSnackBar
   ) { }
 
 
@@ -79,9 +81,15 @@ export class ProductAddEditComponent implements OnInit {
     this.productService.addProduct(this.form.value)
       .pipe(first())
       .subscribe((data: any) => {
+        this._snackBar.open(data.name, Constants.PRODUCT_ACTION_CREATE, {
+          duration: 3000
+        });
         this.cancel();
       }, err => {
         this.spinner.hide();
+        this._snackBar.open('Error', Constants.PRODUCT_ACTION_ERROR, {
+          duration: 3000
+        });
       })
       .add(() => this.spinner.hide());
   }
@@ -91,8 +99,14 @@ export class ProductAddEditComponent implements OnInit {
       .pipe(first())
       .subscribe((data: any) => {
         this.cancel();
+        this._snackBar.open(data.name, Constants.PRODUCT_ACTION_CREATE, {
+          duration: 3000
+        });
       }, err => {
         this.spinner.hide();
+        this._snackBar.open('Error', Constants.PRODUCT_ACTION_ERROR, {
+          duration: 3000
+        });
       })
       .add(() => this.spinner.hide());
   }
